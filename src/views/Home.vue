@@ -1,18 +1,7 @@
 <template>
   <div class="row">
 
-    <div v-for="(item) of personajes" :key="item.id" class="card"  style="width: 18rem;">
-      <div class="card-block d-flex flex-column">
-          <img class="card-img-top" :src="item.image">
-          <div class="card-body">
-            <h5 class="card-title">{{ item.name }}</h5>
-              <div class="d-flex justify-content-between">
-                <a href="#" class="btn btn-primary">Opinar</a>
-                <a href="#" class="btn btn-primary">ver</a>
-            </div>
-          </div>
-      </div>
-    </div>
+    <ListaPersonajes :listaPersonajes="listaPersonajes"></ListaPersonajes>
 
 
   </div>
@@ -21,12 +10,16 @@
 
 <script>
 // @ is an alias to /src
+import ListaPersonajes from "@/components/ListaPersonajes";
 
 export default {
   name: 'Home',
+  components: {
+    ListaPersonajes
+  },
   data(){
     return {
-      personajes: []
+      listaPersonajes: []
     }
    },
   created() {
@@ -35,8 +28,8 @@ export default {
   methods:{
       async getPersonajes(){
         try {
-          const personajes = await this.axios.get("https://rickandmortyapi.com/api/character");
-          this.personajes = personajes.data.results;
+          const listaPersonajes = await this.axios.get("https://rickandmortyapi.com/api/character");
+          this.listaPersonajes = listaPersonajes.data.results;
 
 
         }catch (error){
