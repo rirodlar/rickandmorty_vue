@@ -24,24 +24,31 @@
 <script>
 import Personaje from "@/components/Personaje";
 import Opinar from "@/components/Opinar";
+
+import { mapState } from 'vuex'
+
 export default {
+
+
   name: 'ListaPersonajes',
   components: {Personaje, Opinar},
-  data(){
-    return {
-      personaje: []
+
+
+  mounted() {
+    this.$store.dispatch("obtenerPersonajes");
+  },
+  computed: mapState([
+    'listaPersonajes'
+  ]),
+  methods: {
+
+    verPersonaje(id) {
+
+         this.$refs.personaje.verPersonaje(id);
+
     }
-  },
-  props: {
-    listaPersonajes: {}
-  },
-  methods:{
-     verPersonaje(id){
-       this.$refs.personaje.verPersonaje(id);
-    },
-
-
   }
 }
+
 </script>
 
