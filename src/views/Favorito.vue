@@ -2,8 +2,8 @@
   <div>
     <h1>Favoritos</h1>
 
-    <div class="row" v-if="getFavoritos.length > 0">
-      <div v-for="(item) of getFavoritos" :key="item.id" class="card" style="width: 18rem;">
+    <div class="row" v-if="listaFavoritos.length > 0">
+      <div v-for="(item) of listaFavoritos" :key="item.id" class="card" style="width: 18rem;">
         <div class="card-block d-flex flex-column">
           <img class="card-img-top" :src="item.image">
           <div class="card-body">
@@ -43,7 +43,7 @@ export  default {
   },
 
   computed: mapGetters([
-    'getFavoritos'
+    'listaFavoritos'
   ]),
 }
 </script>

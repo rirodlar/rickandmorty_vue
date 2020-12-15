@@ -24,7 +24,12 @@ const routes = [
     path: '/administracion',
     name: 'Administracion',
     component: () => import(/* webpackChunkName: "about" */ '../views/Administracion.vue')
-  }
+  },
+  {
+    path: '/editarOpinion',
+    name: 'EditarOpinion',
+    component: () => import(/* webpackChunkName: "about" */ '../views/EditarOpinion.vue')
+  },
 ]
 
 const router = new VueRouter({

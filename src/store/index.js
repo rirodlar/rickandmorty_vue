@@ -9,6 +9,7 @@ Vue.use(VueAxios, axios)
 export default new Vuex.Store({
     state: {
         id: 0,
+        name: '',
         detallePersonaje: {},
         listaPersonajes: [],
         favoritos: [],
@@ -31,17 +32,15 @@ export default new Vuex.Store({
                 return state.detallePersonaje.episode.length;
             }
         },
-        getFavoritos(state) {
+        listaFavoritos(state) {
             return state.favoritos;
         },
-        getOpiniones(state) {
+        listaOpiniones(state) {
             return state.opiniones;
         }
     },
     mutations: {
-        aumentar(state) {
-            state.numero++;
-        },
+
         llenarPersonajes(state, listaPersonajes) {
             state.listaPersonajes = listaPersonajes.results;
         },
@@ -73,15 +72,30 @@ export default new Vuex.Store({
             this.state.favoritos.splice(pos,1);
 
         },
+        eliminarOpinion(state, id) {
+
+            let pos =   this.state.opiniones.findIndex(p => p.id === id)
+
+            this.state.opiniones.splice(pos,1);
+
+        },
 
         opinar(state, params) {
-            console.log("Opinar ::"+params);
-
+           let personaje =  this.state.listaPersonajes.filter(p => p.id == params[0])
+            console.log(personaje[0])
             state.opiniones.push({
                 id: params[0],
-                name: params[1],
+                personaje : personaje[0].name,
+                usuario: params[1],
                 opinion: params[2]
             });
+        },
+
+        actualizarOpinion(state, params) {
+            let opinion =  this.state.opiniones.filter(p => p.id == params[0])
+            console.log("actualizsr opinion ::" +opinion)
+            opinion[0].usuario = params[1];
+            opinion[0].opinion = params[2];
         }
 
     },
@@ -119,7 +133,17 @@ export default new Vuex.Store({
         opinar({commit}, id, nombre, opinion) {
             console.log("eliminar favorito(store)" + id);
             commit('opinar', id, nombre, opinion);
-        }
+        },
+        eliminarOpinion({commit}, id) {
+            console.log("eliminar Opinion(store)" + id);
+            commit('eliminarOpinion', id);
+        },
+        actualizarOpinion({commit}, id, usuario, opinion) {
+            console.log("eliminar favorito(store)" + id);
+            commit('actualizarOpinion', id, usuario, opinion);
+        },
+
+
     },
     modules: {}
 })

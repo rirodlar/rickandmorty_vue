@@ -1,13 +1,13 @@
 <template>
   <div class="row">
 
-    <div v-for="(item) of listaPersonajes" :key="item.id" class="card" style="width: 18rem;">
-      <div class="card-block d-flex flex-column">
+    <div v-for="(item) of listaPersonajes" :key="item.id" class="card-block d-flex justify-content-around flex-column card m-3 p-2" style="width: 20rem;">
+      <div >
         <img class="card-img-top" :src="item.image">
         <div class="card-body">
           <h5 class="card-title">{{ item.name }}</h5>
           <div class="d-flex justify-content-between">
-            <a href="#" class="btn btn-primary"  @click="opinar(item.name)" data-toggle="modal"
+            <a href="#" class="btn btn-primary"  @click="opinar(item.id)" data-toggle="modal"
                data-target="#opinarPersonajeModal">Opinar</a>
 
             <a href="#" class="btn btn-primary" @click="verPersonaje(item.id)" data-toggle="modal"
@@ -50,8 +50,7 @@ export default {
       this.$refs.personaje.verPersonaje(id);
     },
     opinar(id) {
-      console.log("opinar: listaPersonajes");
-      this.$refs.opinar.sendId(id);
+      this.$refs.opinar.setId(id);
     }
   }
 }

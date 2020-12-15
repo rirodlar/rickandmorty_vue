@@ -17,7 +17,7 @@
                   <form>
                     <div class="form-group">
                       <label for="tuNombre">Tu nombre:</label>
-                      <input v-model="nombre"  type="email" class="form-control" id="tuNombre"  placeholder="Ingresa tu nombre">
+                      <input v-model="nombre"  type="text" class="form-control" id="tuNombre"  placeholder="Ingresa tu nombre">
                     </div>
                     <div class="form-group">
                       <label for="tuOpinion">Tu Opinion</label>
@@ -48,9 +48,10 @@ export default {
   },
   methods:{
 
-    sendId(id){
+    setId(id){
       this.$store.state.id  = id;
     },
+
     opinar(){
       let id = this.$store.state.id;
       this.$store.dispatch("opinar",[id, this.nombre, this.opinion]);
@@ -59,3 +60,9 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .form-control{
+    text-align: left;
+  }
+</style>

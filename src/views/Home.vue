@@ -1,10 +1,5 @@
 <template>
-  <div class="row">
-
     <ListaPersonajes></ListaPersonajes>
-
-
-  </div>
 
 </template>
 
@@ -20,3 +15,6 @@ export default {
 
 }
 </script>
+<style scoped>
+
+</style>

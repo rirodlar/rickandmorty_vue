@@ -18,9 +18,9 @@
               <div class="col-6">
                 <p><strong>Status:</strong> {{$store.getters.getPersonaje.status}}</p>
                 <p><strong>Especie: </strong> {{$store.getters.getPersonaje.species}}</p>
-                <p><strong>Fecha Creacion: </strong> {{$store.getters.getPersonaje.created}} </p>
-                <p><strong>Episodios</strong>  {{$store.getters.getLocalizacion}}</p>
-                <p><strong>Fecha Creación</strong> {{$store.getters.getCantidadEpiside}} </p>
+                <p><strong>Ubiación: </strong> {{$store.getters.getLocalizacion}} </p>
+                <p><strong>Episodios</strong>  {{$store.getters.getCantidadEpiside}}</p>
+                <p><strong>Fecha Creación</strong> {{$store.getters.getPersonaje.created}} </p>
               </div>
             </div>
           </div>
