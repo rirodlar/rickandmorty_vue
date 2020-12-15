@@ -8,25 +8,19 @@ Vue.use(VueAxios, axios)
 
 export default new Vuex.Store({
     state: {
-        numero: 10,
+        id: 0,
         detallePersonaje: {},
         listaPersonajes: [],
-        favoritos: []
+        favoritos: [],
+        opiniones: []
     },
     getters: {
 
-        getName(state) {
-            return state.detallePersonaje.name;
+
+        getPersonaje(state) {
+            return state.detallePersonaje;
         },
-        getSpecies(state){
-              return state.detallePersonaje.species;
-        },
-        getFechaCreated(state){
-            return state.detallePersonaje.created;
-        },
-        getStatus(state){
-            return state.detallePersonaje.status;
-        },
+
         getLocalizacion(state) {
             if (state.detallePersonaje.location != null) {
                 return state.detallePersonaje.location.name;
@@ -36,6 +30,12 @@ export default new Vuex.Store({
             if (state.detallePersonaje.episode != null) {
                 return state.detallePersonaje.episode.length;
             }
+        },
+        getFavoritos(state) {
+            return state.favoritos;
+        },
+        getOpiniones(state) {
+            return state.opiniones;
         }
     },
     mutations: {
@@ -43,13 +43,47 @@ export default new Vuex.Store({
             state.numero++;
         },
         llenarPersonajes(state, listaPersonajes) {
-
             state.listaPersonajes = listaPersonajes.results;
         },
 
         obtenerDetallePersonaje(state, listaPersonaje) {
             state.detallePersonaje = listaPersonaje;
+        },
+        añadirFavorito(state, personaje) {
+            let isRepetido = false;
+            state.favoritos.forEach(per => {
+                if (per.id == personaje.id) {
+                    isRepetido = true;
+                    return;
+                }
+            })
+            if (!isRepetido) {
+                state.favoritos.push({
+                    id: personaje.id,
+                    name: personaje.name,
+                    image: personaje.image
+                });
+            }
+        },
+        eliminarFavorito(state, id) {
+            console.log(id);
+
+          let pos =   this.state.favoritos.findIndex(p => p.id === id)
+
+            this.state.favoritos.splice(pos,1);
+
+        },
+
+        opinar(state, params) {
+            console.log("Opinar ::"+params);
+
+            state.opiniones.push({
+                id: params[0],
+                name: params[1],
+                opinion: params[2]
+            });
         }
+
     },
     actions: {
         obtenerPersonajes({commit}) {
@@ -73,6 +107,18 @@ export default new Vuex.Store({
                     commit('obtenerDetallePersonaje', result)
                 })
 
+        },
+        añadirFavorito({commit}, personaje) {
+            console.log("añadir favorito(store)" + personaje);
+            commit('añadirFavorito', personaje);
+        },
+        eliminarFavorito({commit}, id) {
+            console.log("eliminar favorito(store)" + id);
+            commit('eliminarFavorito', id);
+        },
+        opinar({commit}, id, nombre, opinion) {
+            console.log("eliminar favorito(store)" + id);
+            commit('opinar', id, nombre, opinion);
         }
     },
     modules: {}

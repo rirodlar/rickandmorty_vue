@@ -17,11 +17,11 @@
                   <form>
                     <div class="form-group">
                       <label for="tuNombre">Tu nombre:</label>
-                      <input type="email" class="form-control" id="tuNombre"  placeholder="Ingresa tu nombre">
+                      <input v-model="nombre"  type="email" class="form-control" id="tuNombre"  placeholder="Ingresa tu nombre">
                     </div>
                     <div class="form-group">
                       <label for="tuOpinion">Tu Opinion</label>
-                      <textarea class="form-control" id="tuOpinion" rows="3"></textarea>
+                      <textarea v-model="opinion" class="form-control" id="tuOpinion" rows="3"></textarea>
                     </div>
 
                   </form>
@@ -30,7 +30,7 @@
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="button" class="btn btn-primary">Guardar</button>
+            <button type="button" data-dismiss="modal" @click="opinar()" class="btn btn-primary">Guardar</button>
           </div>
         </div>
       </div>
@@ -39,6 +39,23 @@
 </template>
 <script>
 export default {
-  name: 'Opinar'
+  name: 'Opinar',
+  data: function () {
+    return {
+      nombre: '',
+      opinion: ''
+    }
+  },
+  methods:{
+
+    sendId(id){
+      this.$store.state.id  = id;
+    },
+    opinar(){
+      let id = this.$store.state.id;
+      this.$store.dispatch("opinar",[id, this.nombre, this.opinion]);
+      this.$router.push('opinion')
+    },
+  }
 }
 </script>

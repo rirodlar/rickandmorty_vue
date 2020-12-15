@@ -1,22 +1,26 @@
 <template>
-    <div class="row">
-      <div v-for="(item) of listaPersonajes" :key="item.id" class="card"  style="width: 18rem;">
-        <div class="card-block d-flex flex-column">
-          <img class="card-img-top" :src="item.image">
-          <div class="card-body">
-            <h5 class="card-title">{{ item.name }}</h5>
-            <div class="d-flex justify-content-between">
-              <a href="#" class="btn btn-primary" @click="veopinarrPersonaje(item.id)" data-toggle="modal" data-target="#opinarPersonajeModal">Opinar</a>
-              <a href="#" class="btn btn-primary" @click="verPersonaje(item.id)" data-toggle="modal" data-target="#verPersonajeModal">ver</a>
-            </div>
+  <div class="row">
+
+    <div v-for="(item) of listaPersonajes" :key="item.id" class="card" style="width: 18rem;">
+      <div class="card-block d-flex flex-column">
+        <img class="card-img-top" :src="item.image">
+        <div class="card-body">
+          <h5 class="card-title">{{ item.name }}</h5>
+          <div class="d-flex justify-content-between">
+            <a href="#" class="btn btn-primary"  @click="opinar(item.name)" data-toggle="modal"
+               data-target="#opinarPersonajeModal">Opinar</a>
+
+            <a href="#" class="btn btn-primary" @click="verPersonaje(item.id)" data-toggle="modal"
+               data-target="#verPersonajeModal">ver</a>
           </div>
         </div>
       </div>
-
-      <Personaje ref="personaje"></Personaje>
-      <Opinar></Opinar>
-
     </div>
+
+    <Personaje ref="personaje"></Personaje>
+    <Opinar ref="opinar"></Opinar>
+
+  </div>
 
 
 </template>
@@ -25,7 +29,7 @@
 import Personaje from "@/components/Personaje";
 import Opinar from "@/components/Opinar";
 
-import { mapState } from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
 
@@ -43,9 +47,11 @@ export default {
   methods: {
 
     verPersonaje(id) {
-
-         this.$refs.personaje.verPersonaje(id);
-
+      this.$refs.personaje.verPersonaje(id);
+    },
+    opinar(id) {
+      console.log("opinar: listaPersonajes");
+      this.$refs.opinar.sendId(id);
     }
   }
 }
